@@ -1,10 +1,13 @@
 version: 0.0
 os: linux
 files:
-  - source: /index.html
+  - source: index.html
     destination: /var/www/html/
+  #- source: /config.txt
+  #  destination: /etc/config
 hooks:
   ApplicationStop:
+    - location: chmod +x ./scripts/*
     - location: scripts/stop_server
       timeout: 300
   BeforeInstall:
@@ -15,3 +18,6 @@ hooks:
   ApplicationStart:
     - location: scripts/start_server
       timeout: 300
+  #ValidateService:
+    #- location: scripts/MonitorService.sh
+    #  timeout: 3600
